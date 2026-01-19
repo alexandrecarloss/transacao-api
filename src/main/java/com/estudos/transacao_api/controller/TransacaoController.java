@@ -5,10 +5,7 @@ import com.estudos.transacao_api.controller.dtos.TransacaoRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,5 +22,11 @@ public class TransacaoController {
     public ResponseEntity<Void> adicionarTransacao(@RequestBody TransacaoRequestDTO dto) {
         transacaoService.adicionarTrasacoes(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deletarTransacoes(){
+        transacaoService.limparTransacoes();
+        return ResponseEntity.ok().build();
     }
 }
