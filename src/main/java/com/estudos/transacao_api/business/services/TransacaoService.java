@@ -18,7 +18,7 @@ import java.util.List;
 public class TransacaoService {
 
     private static final Logger log = LoggerFactory.getLogger(TransacaoService.class);
-    private final List<TransacaoRequestDTO> listaTransacao = new ArrayList<>();
+    private final List<TransacaoRequestDTO> listaTransacoes = new ArrayList<>();
 
     public void adicionarTrasacoes(TransacaoRequestDTO dto) {
 
@@ -33,6 +33,10 @@ public class TransacaoService {
             throw new UnprocessableEntity("Valor não pode ser menor que 0");
         }
 
-        listaTransacao.add(dto);
+        listaTransacoes.add(dto);
+    }
+
+    public void limparTransacoes() {
+        listaTransacoes.clear();
     }
 }
