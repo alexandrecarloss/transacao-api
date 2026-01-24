@@ -21,7 +21,7 @@ public class TransacaoService {
 
         log.info("Iniciado o processamento de gravar transações " + dto);
         if(dto.dataHora().isAfter(OffsetDateTime.now())) {
-            log.error("Data e hora maiores que a data e hora atual");
+            log.error("Data e hora maiores que a data e hora atuais");
             throw new UnprocessableEntity("Data e hora maiores que a data e hora atuais");
         }
 
