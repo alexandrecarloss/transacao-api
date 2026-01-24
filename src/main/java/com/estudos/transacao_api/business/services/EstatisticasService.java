@@ -4,8 +4,6 @@ import com.estudos.transacao_api.controller.dtos.EstatisticasResponseDTO;
 import com.estudos.transacao_api.controller.dtos.TransacaoRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.DoubleSummaryStatistics;
@@ -16,12 +14,17 @@ import java.util.List;
 @Slf4j
 public class EstatisticasService {
 
-    private static final Logger log = LoggerFactory.getLogger(EstatisticasService.class);
-    public final TransacaoService transacaoService;
+    private final TransacaoService transacaoService;
 
     public EstatisticasResponseDTO calcularEstatisticasTransacoes(Integer intervaloBusca) {
+
         log.info("Iniciada busca de estatísticas de transações pelo período de tempo: " + intervaloBusca);
+
         List<TransacaoRequestDTO> transacoes = transacaoService.buscarTransacoes((intervaloBusca));
+
+        if(transacoes.isEmpty()){
+            return new EstatisticasResponseDTO(0L, 0.0, 0.0, 0.0, 0.0);
+        }
 
         DoubleSummaryStatistics estatisticasTransacoes = transacoes.stream()
                 .mapToDouble(TransacaoRequestDTO::valor).summaryStatistics();
